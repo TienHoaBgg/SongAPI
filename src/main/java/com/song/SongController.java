@@ -31,7 +31,7 @@ public class SongController {
     }
     @GetMapping("/api/listSong")
     public Object getListSong(
-            @RequestParam(value = "singerName") String name
+            @RequestParam(value = "artistName") String name
     ){
         return songManager.getListSong(name);
     }
