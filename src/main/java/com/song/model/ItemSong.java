@@ -2,13 +2,13 @@ package com.song.model;
 
 public class ItemSong {
     String linkSong;
-    String linkImg;
-    String name;
+    String linkImage;
+    String songName;
 
-    public ItemSong(String linkSong, String linkImg, String name) {
+    public ItemSong(String linkSong, String linkImage, String songName) {
         this.linkSong = linkSong;
-        this.linkImg = linkImg;
-        this.name = name;
+        this.linkImage = linkImage;
+        this.songName = songName;
     }
     public ItemSong(){}
 
@@ -21,18 +21,18 @@ public class ItemSong {
     }
 
     public String getLinkImg() {
-        return linkImg;
+        return linkImage;
     }
 
-    public void setLinkImg(String linkImg) {
-        this.linkImg = linkImg;
+    public void setLinkImg(String linkImage) {
+        this.linkImage = linkImage;
     }
 
     public String getName() {
-        return name;
+        return songName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String songName) {
+        this.songName = songName;
     }
 }
