@@ -20,19 +20,19 @@ public class ItemSong {
         this.linkSong = linkSong;
     }
 
-    public String getLinkImg() {
+    public String getLinkImage() {
         return linkImage;
     }
 
-    public void setLinkImg(String linkImage) {
+    public void setLinkImage(String linkImage) {
         this.linkImage = linkImage;
     }
 
-    public String getName() {
+    public String getSongName() {
         return songName;
     }
 
-    public void setName(String songName) {
+    public void setSongName(String songName) {
         this.songName = songName;
     }
 }
