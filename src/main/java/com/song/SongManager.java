@@ -102,8 +102,7 @@ public class SongManager {
                 Document docs = Jsoup.connect(url).get();
                 Elements els = docs.getElementById("music").select("ul.list-unstyled").select("li.media");
                 for (Element child : els) {
-                    String linkSong =
-                            "https://chiasenhac.vn" + child.select("a").first().attr("href");
+                    String linkSong =child.select("a").first().attr("href");
                     String linkImage = child.select("a").first().select("img").attr("src");
                     String nameSong = child.select("a").first().attr("title");
                     listSong.add(new ItemSong(linkSong, linkImage, nameSong));
