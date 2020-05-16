@@ -1,7 +1,6 @@
 package com.song;
 
 import com.song.model.GetLinkMusic;
-import com.song.model.ItemMusicOnline;
 import com.song.model.ItemSong;
 import com.song.model.Lyric;
 import org.jsoup.Jsoup;
@@ -20,15 +19,17 @@ public class SongManager {
         if (songName == null || songName.trim().equals("")) {
             return getListFirstSong();
         }
-        List<ItemMusicOnline> onlines = new ArrayList<>();
+        List<ItemSong> onlines = new ArrayList<>();
         try {
             Document c = Jsoup.connect("https://chiasenhac.vn/tim-kiem?q="
                     + songName.replace(" ", "+") +
                     "&page_music=" + currentPage + "&filter=all").get();
             Elements els = c.select("div.tab-content").first().select("ul.list-unstyled");
+            int list = 0;
             for (int i = 0; i <= els.size() - 1; i++) {
                 Element e = els.get(i);
                 Elements childEls = e.select("li.media");
+
                 for (Element child : childEls) {
                     try {
                         String linkSong =
@@ -37,7 +38,8 @@ public class SongManager {
                                 child.select("a").first().select("img").attr("src");
                         String title = child.select("a").first().attr("title");
                         String singer = child.select("div.author").text();
-                        onlines.add(new ItemMusicOnline(linkSong, linkImg, title, singer, linkSong));
+                        onlines.add(new ItemSong(list, linkImg, title, singer, linkSong));
+                        list++;
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
@@ -52,18 +54,20 @@ public class SongManager {
     }
 
     private Object getListFirstSong() {
-        List<ItemMusicOnline> onlines = new ArrayList<>();
+        List<ItemSong> onlines = new ArrayList<>();
         try {
             Document doc = Jsoup.connect("https://chiasenhac.vn/bang-xep-hang/tuan.htmlhttps://chiasenhac.vn/bang-xep-hang/tuan.html").get();
             Elements els = doc.select("div.tab-content").select("ul.list-unstyled");
             Elements childEls = els.select("li.media");
+            int i = 0;
             for (Element child : childEls) {
                 String linkSong =
                         "https://chiasenhac.vn" + child.select("a").first().attr("href");
                 String linkImage = child.select("a").first().select("img").attr("src");
                 String nameSong = child.select("a").first().attr("title");
                 String nameSinger = child.select("div.author").text();
-                onlines.add(new ItemMusicOnline(linkSong, linkImage, nameSong, nameSinger, linkSong));
+                onlines.add(new ItemSong(i, linkImage, nameSong, nameSinger, linkSong));
+                i++;
             }
         } catch (IOException e) {
 
@@ -101,12 +105,13 @@ public class SongManager {
             } else {
                 Document docs = Jsoup.connect(url).get();
                 Elements els = docs.getElementById("music").select("ul.list-unstyled").select("li.media");
+                int i = 0;
                 for (Element child : els) {
-                    String linkSong =
-                            "https://chiasenhac.vn" + child.select("a").first().attr("href");
+                    String linkSong = child.select("a").first().attr("href");
                     String linkImage = child.select("a").first().select("img").attr("src");
                     String nameSong = child.select("a").first().attr("title");
-                    listSong.add(new ItemSong(linkSong, linkImage, nameSong));
+                    listSong.add(new ItemSong(i, linkImage, nameSong, name, linkSong));
+                    i++;
                 }
             }
         } catch (IOException e) {
@@ -114,22 +119,42 @@ public class SongManager {
         return listSong;
     }
 
-    public Object getLyric(String linkSong){
+    public Object getLyric(String linkSong) {
         try {
             Document doc = Jsoup.connect(linkSong).get();
             Element els = doc.getElementById("fulllyric");
             String text = els.toString();
-            text = text.replaceAll("<br>","");
-            text = text.replace("<div id=\"fulllyric\">","");
-            text = text.replace("</div>","");
-            if(text.trim().equals("")){
+            text = text.replaceAll("<br>", "");
+            text = text.replace("<div id=\"fulllyric\">", "");
+            text = text.replace("</div>", "");
+            if (text.trim().equals("")) {
                 return null;
-            }else{
+            } else {
                 return new Lyric(text);
             }
         } catch (IOException e) {
         }
         return null;
     }
+
+    public Object getListSame(String link) {
+        List<ItemSong> listSong = new ArrayList<>();
+        try {
+            Document docs = Jsoup.connect(link).get();
+            Elements element = docs.getElementsByClass("col-md-3").select("ul.list-unstyled").select("li.media");
+            int i = 0;
+            for (Element els : element) {
+                String linkSong = els.select("a").first().attr("href");
+                String linkImage = els.select("a").first().select("img").attr("src");
+                String nameSong = els.select("a").first().attr("title");
+                String nameSinger = els.select("a").get(2).text();
+                listSong.add(new ItemSong(i, linkImage, nameSong, nameSinger, linkSong));
+                i++;
+            }
+        } catch (IOException e) {
+        }
+        return listSong;
+    }
+
 
 }

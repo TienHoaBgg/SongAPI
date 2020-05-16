@@ -1,16 +1,52 @@
 package com.song.model;
 
 public class ItemSong {
-    String linkSong;
-    String linkImg;
-    String name;
+    private int id;
+    private String linkImage;
+    private String songName;
+    private String artistName;
+    private String linkSong;
+    private String linkMusic;
 
-    public ItemSong(String linkSong, String linkImg, String name) {
+    public ItemSong(int id, String linkImage, String songName, String artistName, String linkSong) {
+        this.id = id;
+        this.linkImage = linkImage;
+        this.songName = songName;
+        this.artistName = artistName;
         this.linkSong = linkSong;
-        this.linkImg = linkImg;
-        this.name = name;
     }
-    public ItemSong(){}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getLinkImage() {
+        return linkImage;
+    }
+
+    public void setLinkImage(String linkImage) {
+        this.linkImage = linkImage;
+    }
+
+    public String getSongName() {
+        return songName;
+    }
+
+    public void setSongName(String songName) {
+        this.songName = songName;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
 
     public String getLinkSong() {
         return linkSong;
@@ -20,19 +56,11 @@ public class ItemSong {
         this.linkSong = linkSong;
     }
 
-    public String getLinkImg() {
-        return linkImg;
+    public String getLinkMusic() {
+        return linkMusic;
     }
 
-    public void setLinkImg(String linkImg) {
-        this.linkImg = linkImg;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setLinkMusic(String linkMusic) {
+        this.linkMusic = linkMusic;
     }
 }

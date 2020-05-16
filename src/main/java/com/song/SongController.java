@@ -35,6 +35,13 @@ public class SongController {
     ){
         return songManager.getListSong(name);
     }
+    @GetMapping("/api/listSongSame")
+    public Object getListSongSame(
+            @RequestParam(value = "linkSong") String link
+    ){
+        return songManager.getListSame(link);
+    }
+
     @GetMapping("/")
     String hello(){
         return "Nguyễn Tiến Hòa";
