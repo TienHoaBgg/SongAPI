@@ -6,7 +6,6 @@ public class ItemSong {
     private String songName;
     private String artistName;
     private String linkSong;
-    private String linkMusic;
 
     public ItemSong(int id, String linkImage, String songName, String artistName, String linkSong) {
         this.id = id;
@@ -22,22 +21,6 @@ public class ItemSong {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getLinkImage() {
-        return linkImage;
-    }
-
-    public void setLinkImage(String linkImage) {
-        this.linkImage = linkImage;
-    }
-
-    public String getSongName() {
-        return songName;
-    }
-
-    public void setSongName(String songName) {
-        this.songName = songName;
     }
 
     public String getArtistName() {
@@ -56,11 +39,19 @@ public class ItemSong {
         this.linkSong = linkSong;
     }
 
-    public String getLinkMusic() {
-        return linkMusic;
+    public String getLinkImage() {
+        return linkImage;
     }
 
-    public void setLinkMusic(String linkMusic) {
-        this.linkMusic = linkMusic;
+    public void setLinkImage(String linkImage) {
+        this.linkImage = linkImage;
+    }
+
+    public String getSongName() {
+        return songName;
+    }
+
+    public void setSongName(String songName) {
+        this.songName = songName;
     }
 }
