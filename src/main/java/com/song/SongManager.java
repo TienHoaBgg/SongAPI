@@ -38,7 +38,8 @@ public class SongManager {
                                 child.select("a").first().select("img").attr("src");
                         String title = child.select("a").first().attr("title");
                         String singer = child.select("div.author").text();
-                        onlines.add(new ItemSong(list, linkImg, title, singer, linkSong));
+                        String linkMusic = getLinkM(linkSong);
+                        onlines.add(new ItemSong(list, linkImg, title, singer, linkSong, linkMusic));
                         list++;
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -61,12 +62,12 @@ public class SongManager {
             Elements childEls = els.select("li.media");
             int i = 0;
             for (Element child : childEls) {
-                String linkSong =
-                        "https://chiasenhac.vn" + child.select("a").first().attr("href");
+                String linkSong = "https://chiasenhac.vn" + child.select("a").first().attr("href");
                 String linkImage = child.select("a").first().select("img").attr("src");
                 String nameSong = child.select("a").first().attr("title");
                 String nameSinger = child.select("div.author").text();
-                onlines.add(new ItemSong(i, linkImage, nameSong, nameSinger, linkSong));
+                String linkMusic = getLinkM(linkSong);
+                onlines.add(new ItemSong(i, linkImage, nameSong, nameSinger, linkSong, linkMusic));
                 i++;
             }
         } catch (IOException e) {
@@ -110,7 +111,8 @@ public class SongManager {
                     String linkSong = child.select("a").first().attr("href");
                     String linkImage = child.select("a").first().select("img").attr("src");
                     String nameSong = child.select("a").first().attr("title");
-                    listSong.add(new ItemSong(i, linkImage, nameSong, name, linkSong));
+                    String linkMusic = getLinkM(linkSong);
+                    listSong.add(new ItemSong(i, linkImage, nameSong, name, linkSong, linkMusic));
                     i++;
                 }
             }
@@ -148,12 +150,31 @@ public class SongManager {
                 String linkImage = els.select("a").first().select("img").attr("src");
                 String nameSong = els.select("a").first().attr("title");
                 String nameSinger = els.select("a").get(2).text();
-                listSong.add(new ItemSong(i, linkImage, nameSong, nameSinger, linkSong));
+                String linkMusic = getLinkM(linkSong);
+                listSong.add(new ItemSong(i, linkImage, nameSong, nameSinger, linkSong, linkMusic));
                 i++;
             }
         } catch (IOException e) {
         }
         return listSong;
+    }
+
+    private String getLinkM(String linkSong){
+        String link = null;
+        try {
+            Document c = Jsoup.connect(linkSong).get();
+            Elements els =
+                    c.select("div.tab-content").first().select("a.download_item");
+            if (els.size() >= 2) {
+                link = els.get(1).attr("href");
+            } else {
+               link = els.get(0).attr("href");
+            }
+
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+        }
+        return link;
     }
 
 
