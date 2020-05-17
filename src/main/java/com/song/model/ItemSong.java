@@ -6,15 +6,15 @@ public class ItemSong {
     private String songName;
     private String artistName;
     private String linkSong;
-    private String linkMusic;
 
-    public ItemSong(int id, String linkImage, String songName, String artistName, String linkSong, String linkMusic) {
+
+    public ItemSong(int id, String linkImage, String songName, String artistName, String linkSong) {
         this.id = id;
         this.linkImage = linkImage;
         this.songName = songName;
         this.artistName = artistName;
         this.linkSong = linkSong;
-        this.linkMusic = linkMusic;
+
     }
 
     public int getId() {
@@ -40,14 +40,6 @@ public class ItemSong {
     public void setLinkSong(String linkSong) {
         this.linkSong = linkSong;
     }
-    public String getLinkMusic() {
-        return linkMusic;
-    }
-
-    public void setLinkMusic(String linkMusic) {
-        this.linkMusic = linkMusic;
-    }
-
 
     public String getLinkImage() {
         return linkImage;
